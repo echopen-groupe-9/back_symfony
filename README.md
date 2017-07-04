@@ -1,4 +1,4 @@
-Dashboard - Socialize US - Install
+Install
 ========================
 
 The events will display on a specific view, reachable on another repository -- https://github.com/echopen-groupe-9/front-Vuejs. The separation in two repository beetween our main site and this dashboard has for main purpose to keep clear, and to help you, install this without any issue.

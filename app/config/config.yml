@@ -174,3 +174,21 @@ easy_admin:
         actions:
             - { name: 'edit', icon: 'pencil' }
             - { name: 'delete', icon: 'remove' }
+
+lexik_jwt_authentication:
+    private_key_path: '%jwt_private_key_path%'
+    public_key_path:  '%jwt_public_key_path%'
+    pass_phrase:      '%jwt_key_pass_phrase%'
+    token_ttl:        '%jwt_token_ttl%'
+
+#token_extractors:
+#    authorization_header:      # look for a token as Authorization Header
+#        enabled: true
+#        prefix:  Bearer
+#        name:    Authorization
+#    cookie:                    # check token in a cookie
+#        enabled: false
+#        name:    BEARER
+#    query_parameter:           # check token in query string parameter
+#        enabled: false
+#        name:    bearer
