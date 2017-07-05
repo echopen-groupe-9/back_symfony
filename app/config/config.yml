@@ -7,6 +7,10 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    #Assetic
+    assetic.filter.compass.images_dir: %kernel.root_dir%/../web/images
+    assetic.filter.compass.http_path: /images
+    app.path.product_images: /images
 
 framework:
     #esi:             ~
@@ -214,4 +218,53 @@ lexik_jwt_authentication:
         query_parameter:           # check token in query string parameter
             enabled: false
             name:    bearer
+
+#Gaufrette
+knp_gaufrette:
+    stream_wrapper: ~
+
+    adapters:
+        image_adapter:
+            local:
+                directory: '%kernel.root_dir%/../web/images'
+
+    filesystems:
+            image_fs:
+                adapter:    image_adapter
+
+#Vich
+vich_uploader:
+    db_driver: orm
+    storage:   gaufrette
+
+    mappings:
+        image:
+            uri_prefix:         '%app.path.product_images%'
+            upload_destination: image_fs
+
+#LiipImagine
+liip_imagine:
+    resolvers:
+       default:
+          web_path:
+              web_root: "%kernel.root_dir%/../web"
+              cache_prefix: "cache"
+    loaders:
+        default:
+            filesystem:
+                data_root: "%kernel.root_dir%/../web/"
+    driver:   gd
+    cache:    default
+    data_loader: default
+    default_image: null
+    controller:
+        filter_action:          liip_imagine.controller:filterAction
+        filter_runtime_action:  liip_imagine.controller:filterRuntimeAction
+    filter_sets:
+        cache: ~
+        thumb_42x42:
+            quality: 100
+            filters:
+                thumbnail: { size: [42, 42], mode: outbound, allow_upscale: true }
+
 
