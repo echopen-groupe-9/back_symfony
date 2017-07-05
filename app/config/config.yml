@@ -43,6 +43,16 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
 
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    filters:
+        cssrewrite: ~
+        sass:
+            bin: /Users/walid/.rvm/gems/ruby-2.2.2/bin/sass
+        compass:
+            bin: /Users/walid/.rvm/gems/ruby-2.2.2/bin/compass
+
 # Doctrine Configuration
 doctrine:
     dbal:
@@ -346,8 +356,6 @@ ivory_ck_editor:
             - { name: "Label Success", element: "span",  attributes: { class: "label label-success" }}
             - { name: "Label Warning", element: "span",  attributes: { class: "label label-warning" }}
             - { name: "Label Danger", element: "span",  attributes: { class: "label label-danger" }}
-
-
 
 
 

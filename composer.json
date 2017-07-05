@@ -31,7 +31,7 @@
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "^2.0",
         "dunglas/action-bundle": "^0.3",
-        "nelmio/cors-bundle": "^1.4",
+        "nelmio/cors-bundle": "^1.5",
         "phpdocumentor/reflection-docblock": "^3.0",
         "friendsofsymfony/user-bundle": "~2.0",
         "lexik/jwt-authentication-bundle": "^2.4",
