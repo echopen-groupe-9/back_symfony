@@ -45,5 +45,10 @@ parameters:
     mailer_user: null
     mailer_password: null
     secret: # your personal token 
+    jwt_private_key_path: '%kernel.root_dir%/../var/jwt/private.pem'
+    jwt_public_key_path: '%kernel.root_dir%/../var/jwt/public.pem'
+    jwt_key_pass_phrase: echopen
+    jwt_token_ttl: 3600
+    cors_allow_origin: 'http://localhost'
 
 ```
