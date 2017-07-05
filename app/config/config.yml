@@ -4,33 +4,31 @@ imports:
     - { resource: services.yml }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
-# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+# http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: fr
-    assetic.filter.compass.images_dir: %kernel.root_dir%/../web/images
-    assetic.filter.compass.http_path: /images
-    app.path.product_images: /images
+    locale: en
 
 framework:
-    #esi: ~
-    translator: { fallbacks: ['%locale%'] }
-    secret: '%secret%'
+    #esi:             ~
+    translator:      { fallbacks: ["%locale%"] }
+    secret:          "%secret%"
     router:
-        resource: '%kernel.project_dir%/app/config/routing.yml'
+        resource: "%kernel.root_dir%/config/routing.yml"
         strict_requirements: ~
-    form: ~
+    form:            ~
     csrf_protection: ~
-    validation: { enable_annotations: true }
-    #serializer: { enable_annotations: true }
+    validation:      { enable_annotations: true }
+    serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-    default_locale: '%locale%'
-    trusted_hosts: ~
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
     session:
-        # https://symfony.com/doc/current/reference/configuration/framework.html#handler-id
-        handler_id: session.handler.native_file
-        save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
-    fragments: ~
+        # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+        handler_id:  session.handler.native_file
+        save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"
+    fragments:       ~
     http_method_override: true
     assets: ~
     php_errors:
@@ -38,142 +36,166 @@ framework:
 
 # Twig Configuration
 twig:
-    debug: '%kernel.debug%'
-    strict_variables: '%kernel.debug%'
-
-assetic:
-    debug:          '%kernel.debug%'
-    use_controller: '%kernel.debug%'
-    filters:
-        cssrewrite: ~
-        sass:
-            bin: /Users/walid/.rvm/gems/ruby-2.2.2/bin/sass
-        compass:
-            bin: /Users/walid/.rvm/gems/ruby-2.2.2/bin/compass
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
 
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver: pdo_mysql
-        host: '%database_host%'
-        port: '%database_port%'
-        dbname: '%database_name%'
-        user: '%database_user%'
-        password: '%database_password%'
-        charset: UTF8
+        driver:   pdo_mysql
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
+        charset:  UTF8
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
-        #     e.g. database_path: "%kernel.project_dir%/var/data/data.sqlite"
+        #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
         #   2. Uncomment database_path in parameters.yml.dist
         #   3. Uncomment next line:
-        #path: '%database_path%'
+        #     path:     "%database_path%"
 
     orm:
-        auto_generate_proxy_classes: '%kernel.debug%'
+        auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: '%mailer_transport%'
-    host: '%mailer_host%'
-    username: '%mailer_user%'
-    password: '%mailer_password%'
-    spool: { type: memory }
-
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
+    spool:     { type: memory }
 
 fos_user:
-    db_driver: orm # other valid values are 'mongodb' and 'couchdb'
+    db_driver: orm
     firewall_name: main
     user_class: AppBundle\Entity\User
     from_email:
           address:        test@test.fr
           sender_name:    Contact
 
-#Gaufrette
-knp_gaufrette:
-    stream_wrapper: ~
+# Nelmio CORS
+nelmio_cors:
+    defaults:
+        allow_origin:   ["%cors_allow_origin%"]
+        allow_methods:  ["POST", "PUT", "GET", "DELETE", "OPTIONS"]
+        allow_headers:  ["content-type", "authorization"]
+        expose_headers: ["link"]
+        max_age:        3600
+    paths:
+        '^/': ~
 
-    adapters:
-        image_adapter:
-            local:
-                directory: '%kernel.root_dir%/../web/images'
 
-    filesystems:
-            image_fs:
-                adapter:   image_adapter
+api_platform:
 
-#Vich
-vich_uploader:
-    db_driver: orm
-    storage:   gaufrette
+    # The title of the API.
+    title: ''
 
-    mappings:
-        image:
-            uri_prefix:         '%app.path.product_images%'
-            upload_destination: image_fs
+    # The description of the API.
+    description: 'A friendly REST API for our awesome Builder'
 
-#LiipImagine
-liip_imagine:
-    resolvers:
-       default:
-          web_path:
-              web_root: "%kernel.root_dir%/../web"
-              cache_prefix: "cache"
-    loaders:
-        default:
-            filesystem:
-                data_root: "%kernel.root_dir%/../web/"
-    driver:   gd
-    cache:    default
-    data_loader: default
-    default_image: null
-    controller:
-        filter_action:          liip_imagine.controller:filterAction
-        filter_runtime_action:  liip_imagine.controller:filterRuntimeAction
-    filter_sets:
-        cache: ~
-        thumb_42x42:
-            quality: 100
-            filters:
-                thumbnail: { size: [42, 42], mode: outbound, allow_upscale: true }
+    # The version of the API.
+    version: '0.0.2'
 
-easy_admin:
-    site_name: '<img src="http://127.0.0.1:8000/images/logo2.png" />'
+    # Specify the default operation path resolver to use for generating resources operations path.
+    # default_operation_path_resolver: 'api_platform.operation_path_resolver.underscore'
+
+    # Specify a name converter to use.
+    name_converter: ~
+
+    # Specify a name for the folder within bundle that contain api resources.
+    #api_resources_directory: 'Entity'
+
+    eager_loading:
+        # To enable or disable eager loading.
+        enabled: true
+
+        # Max number of joined relations before EagerLoading throws a RuntimeException.
+        max_joins: 30
+
+        # Force join on every relation. If disabled, it will only join relations having the EAGER fetch mode.
+        force_eager: true
+
+    # Enable the FOSUserBundle integration.
+    enable_fos_user: true
+
+    # Enable the Nelmio Api doc integration.
+    enable_nelmio_api_doc: true
+
+    # Enable the Swagger documentation and export.
+    enable_swagger: true
+
+    # Enable Swagger ui.
+    enable_swagger_ui: true
+
+    collection:
+        # The default order of results.
+        order: ~
+
+        # The name of the query parameter to order results.
+        order_parameter_name: 'order'
+
+        pagination:
+            # To enable or disable pagination for all resource collections by default.
+            enabled: true
+
+            # To allow the client to enable or disable the pagination.
+            client_enabled: false
+
+            # To allow the client to set the number of items per page.
+            client_items_per_page: false
+
+            # The default number of items per page.
+            items_per_page: 30
+
+            # The maximum number of items per page.
+            maximum_items_per_page: 50
+
+            # The default name of the parameter handling the page number.
+            page_parameter_name: 'page'
+
+            # The name of the query parameter to enable or disable pagination.
+            enabled_parameter_name: 'pagination'
+
+            # The name of the query parameter to set the number of items per page.
+            items_per_page_parameter_name: 'itemsPerPage'
+
+    # The list of exceptions mapped to their HTTP status code.
+    exception_to_status:
+        # With a status code.
+        Symfony\Component\Serializer\Exception\ExceptionInterface: 400
+
+        # Or with a constant defined in the 'Symfony\Component\HttpFoundation\Response' class.
+        ApiPlatform\Core\Exception\InvalidArgumentException: 'HTTP_BAD_REQUEST'
+
+        # ...
+
+    # The list of enabled formats. The first one will be the default.
     formats:
-            date: 'd/m/Y'
-            time: 'H:i'
-            datetime: 'd/m/Y H:i:s'
-    entities:
-        User:
-            class: AppBundle\Entity\User
-            label: 'Utilisateur'
-            list:
-                title: "Tous les utilisateurs"
-                fields: ['id', { property: 'imageName', label: 'Image', type: 'image',base_path: '%app.path.product_images%' }, { property: 'username', label: 'Username' }, { property: 'email', type: 'email' }, { property: 'role', label: 'Rôle' }, { property: 'enabled', label: 'Activé' }]
-            form:
-                title: 'Modifier un utilisateur'
-                fields:
-                    - { type: 'group', label: "Information à propos de l'utilisateur", css_class: 'col-sm-12', icon: 'user',
-                        help: '', css_class: 'danger' }
-                    - { property: 'username', label: 'Pseudo' }
-                    - { property: 'email', type: 'email' }
-                    - { property: 'password', label: 'Mot de passe' }
-                    - { type: 'group', label: 'Information complémentaire', css_class: 'col-sm-12', icon: 'user',
-                        help: 'Ajoutez un rôle (Admin, Ajouteur)', css_class: 'danger' }
-                    - { property: 'roles', label: 'Role' }
-                    - { property: 'imageFile', label: 'Image',type: 'vich_image'}
+    ## @todo  ##
+        jsonld:
+            mime_types: ['application/ld+json']
 
-    design:
-            brand_color: '#333'
-            color_scheme: 'light'
-            menu:
-                - { entity: 'User', icon: 'users' }
+        json:
+            mime_types: ['application/json']
 
-    list:
-        actions:
-            - { name: 'edit', icon: 'pencil' }
-            - { name: 'delete', icon: 'remove' }
+        html:
+            mime_types: ['text/html']
+
+        # ...
+
+    # The list of enabled error formats. The first one will be the default.
+    error_formats:
+        jsonproblem:
+            mime_types: ['application/problem+json']
+
+        jsonld:
+            mime_types: ['application/ld+json']
+
+        # ...
 
 lexik_jwt_authentication:
     private_key_path: '%jwt_private_key_path%'
@@ -181,14 +203,15 @@ lexik_jwt_authentication:
     pass_phrase:      '%jwt_key_pass_phrase%'
     token_ttl:        '%jwt_token_ttl%'
 
-#token_extractors:
-#    authorization_header:      # look for a token as Authorization Header
-#        enabled: true
-#        prefix:  Bearer
-#        name:    Authorization
-#    cookie:                    # check token in a cookie
-#        enabled: false
-#        name:    BEARER
-#    query_parameter:           # check token in query string parameter
-#        enabled: false
-#        name:    bearer
+    token_extractors:
+        authorization_header:      # look for a token as Authorization Header
+            enabled: true
+            prefix:  Bearer
+            name:    Authorization
+        cookie:                    # check token in a cookie
+            enabled: false
+            name:    BEARER
+        query_parameter:           # check token in query string parameter
+            enabled: false
+            name:    bearer
+

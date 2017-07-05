@@ -1,16 +1,18 @@
 <?php
 
+// src/AppBundle/Entity/User.php
+
 namespace AppBundle\Entity;
 
-use FOS\UserBundle\Model\User as BaseUser;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
+use FOS\UserBundle\Model\User as BaseUser;
+use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="fos_user")
- * BaseUser(attributes={
+ * @ApiResource(attributes={
  *     "normalization_context"={"groups"={"user", "user-read"}},
  *     "denormalization_context"={"groups"={"user", "user-write"}}
  * })
@@ -45,12 +47,6 @@ class User extends BaseUser
      */
     protected $username;
 
-    public function __construct()
-    {
-        parent::__construct();
-
-    }
-
     public function setFullname($fullname)
     {
         $this->fullname = $fullname;
@@ -66,7 +62,4 @@ class User extends BaseUser
     {
         return $user instanceof self && $user->id === $this->id;
     }
-
-
-
 }

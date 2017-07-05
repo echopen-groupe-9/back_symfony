@@ -1,15 +1,11 @@
-app:
-    resource: '@AppBundle/Controller/'
-    type: annotation
-
-easy_admin_bundle:
-    resource: "@EasyAdminBundle/Controller/"
-    type:     annotation
-    prefix:   /dashboard
+api:
+    resource: '.'
+    type:     'api_platform'
 
 app:
     resource: '@AppBundle/Action/'
     type:     'annotation'
+
 
 api_login_check:
     path: /api/login_check
