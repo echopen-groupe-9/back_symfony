@@ -46,11 +46,10 @@ class Activity
     private $description;
 
     /**
-     * @var string The author.
+     * @var User
      *
-     * @ORM\Column
-     * @Assert\NotBlank
      * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="author")
      */
     private $author;
 
