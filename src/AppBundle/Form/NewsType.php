@@ -6,14 +6,14 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ActivityType extends AbstractType
+class NewsType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title')->add('description')->add('publicationDate')->add('imageName')->add('updatedAt')->add('author');
+        $builder->add('type')->add('date')->add('title')->add('imageName')->add('updatedAt')->add('content')->add('url')->add('author');
     }
     
     /**
@@ -22,7 +22,7 @@ class ActivityType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Activity'
+            'data_class' => 'AppBundle\Entity\News'
         ));
     }
 
@@ -31,7 +31,7 @@ class ActivityType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_activity';
+        return 'appbundle_news';
     }
 
 

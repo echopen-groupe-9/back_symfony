@@ -1,5 +1,5 @@
-app_activity:
-    resource: "@AppBundle/Controller/ActivityController.php"
+app_news:
+    resource: "@AppBundle/Controller/NewsController.php"
     type:     annotation
 
 api:

@@ -273,31 +273,33 @@ easy_admin:
             time: 'H:i'
             datetime: 'd/m/Y H:i:s'
     entities:
-        Activity:
-            class: AppBundle\Entity\Activity
-            label: 'Activity'
+        News:
+            class: AppBundle\Entity\News
+            label: 'News'
             list:
-                title: "Toutes nos activités"
-                fields: [{ property: 'title', label: 'Titre' }, { property: 'imageName', label: 'Image', type: 'image',base_path: '%app.path.product_images%' }, { property: 'author', label: 'Auteur'}]
+                title: "Toutes nos news"
+                fields: [{ property: 'type', label: 'Type' }, { property: 'title', label: 'Titre' }, { property: 'imageName', label: 'Image', type: 'image',base_path: '%app.path.product_images%' }, { property: 'author', label: 'Auteur'}]
             form:
                 title: 'Modifier une activité'
                 fields:
                     - { type: 'group', label: 'Donnez un titre à votre news', css_class: 'col-sm-12', icon: 'pencil',
                         help: "", css_class: 'danger' }
                     - { property: 'title', label: 'Titre' }
-                    - { type: 'group', label: "Le contenu se trouvera ici", css_class: 'col-sm-12', icon: 'comment',
+                    - { property: 'type', label: 'Type' }
+                    - { type: 'group', label: "Votre contenu", css_class: 'col-sm-12', icon: 'comment',
                         help: "", css_class: 'danger' }
-                    - { property: 'description', label: 'News', type: 'ckeditor' }
+                    - { property: 'content', label: 'News', type: 'ckeditor' }
                     - { property: 'author', label: 'Auteur' }
-                    - { property: 'publicationDate', label: 'Date' }
+                    - { property: 'date', label: 'Date' }
                     - { property: 'imageFile', label: 'Image',type: 'vich_image'}
+                    - { property: 'url', label: 'URL' }
 
         User:
             class: AppBundle\Entity\User
             label: 'Users'
             list:
                 title: "Tous les utilisateurs"
-                fields: ['id', { property: 'username', label: 'Username' }, { property: 'email', type: 'email' }, { property: 'role', label: 'Rôle' }, { property: 'enabled', label: 'Activé' }]
+                fields: ['id', { property: 'username', label: 'Username' }, { property: 'email', type: 'email' }, { property: 'enabled', label: 'Activé' }]
             form:
                 title: 'Modifier un utilisateur'
                 fields:
@@ -315,7 +317,7 @@ easy_admin:
             color_scheme: 'light'
             menu:
                 - { entity: 'User', icon: 'users' }
-                - { entity: 'Activity', icon: 'comments' }
+                - { entity: 'News', icon: 'comments' }
 
     list:
         actions:

@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {% stylesheets
+
+    'assets/sass/.scss'
+    'assets/sass/fontawesome.min.scss'
+
+    filter='compass' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+
+        {% for news in news %}
+
+                {# Type d'article #}
+                {{ news.type }}
+
+                {# Date de publication de l'article #}
+                {% if news.date %}{{ news.date|date('d-m-Y') }}{% endif %}
+
+                {# Titre de l'article #}
+                {{ news.title }}
+
+                {# Affichage de l'image de l'article #}
+                <img class="img-responsive" src={{ asset('images/'~news.imageName) }}>
+
+                {# Dernière modification #}
+                {% if news.updatedAt %}{{ news.updatedAt|date('d-m-Y H:i:s') }}{% endif %}
+
+                {# Contenu de l'article #}
+                {{ news.content|raw }}
+
+                {# Url #}
+                {{ news.url|raw }}
+
+                {# Auteur #}
+                {{ news.author|raw }}
+
+        {% endfor %}
+
+{% endblock %}

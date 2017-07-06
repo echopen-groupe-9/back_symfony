@@ -40,7 +40,8 @@
         "vich/uploader-bundle": "^1.4",
         "javiereguiluz/easyadmin-bundle": "^1.16",
         "symfony/assetic-bundle": "^2.8",
-        "egeloen/ckeditor-bundle": "^4.0"
+        "egeloen/ckeditor-bundle": "^4.0",
+        "lube/api-generator-bundle": "^0.2.0"
     },
     "require-dev": {
         "api-platform/schema-generator": "^1.2",
