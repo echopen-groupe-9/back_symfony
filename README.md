@@ -101,6 +101,7 @@ You will find below, all our accessible path
   fos_user_change_password            GET|POST   ANY      ANY    /profile/change-password
   easyadmin                           ANY        ANY      ANY    /dashboard/
   admin                               ANY        ANY      ANY    /dashboard/
+  news_index                          GET        ANY      ANY    /news/
  ----------------------------------- ---------- -------- ------ -----------------------------------
 
 ```
