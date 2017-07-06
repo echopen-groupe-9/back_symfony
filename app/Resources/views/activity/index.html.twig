@@ -14,14 +14,18 @@
 
 {% block body %}
 
-
         {% for activity in activities %}
 
+            {{ dump(activity) }}
+
             {# Titre de l'article #}
-            {{ activity.title }}
+            {{ activity.title|raw  }}
 
             {# Contenu de l'article #}
             {{ activity.description|raw }}
+
+            {# Auteur #}
+            {{ activity.author }}
 
             {# Date de publication de l'article #}
             {% if activity.publicationDate %}{{ activity.publicationDate|date('d-m-Y') }}{% endif %}
@@ -39,7 +43,7 @@
 
     {% if app.user %}
         {# user is logged in #}
-        <a href="{{ path('news_new') }}">Poster une nouvelle actualité</a>
+        <a href="">Poster une nouvelle actualité</a>
     {% else %}
         {# user is not logged in #}
     {% endif %}

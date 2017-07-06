@@ -25,9 +25,10 @@ class ActivityController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $activities = $em->getRepository('AppBundle:Activity')->findAll();
+        $user = $em->getRepository('AppBundle:User')->findAll();
 
-        return $this->render('activity/index.html.twig', array(
-            'activities' => $activities,
+        return $this->render('activity/index.html.twig', array( 
+            'activities' => $activities, 'user' => $user
         ));
     }
 
@@ -40,8 +41,10 @@ class ActivityController extends Controller
     public function newAction(Request $request)
     {
         $activity = new Activity();
+        $em = $this->getDoctrine()->getManager();
         $form = $this->createForm('AppBundle\Form\ActivityType', $activity);
         $form->handleRequest($request);
+        $user = $em->getRepository('AppBundle:User')->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -53,6 +56,7 @@ class ActivityController extends Controller
 
         return $this->render('activity/new.html.twig', array(
             'activity' => $activity,
+            'user' => $user,
             'form' => $form->createView(),
         ));
     }
