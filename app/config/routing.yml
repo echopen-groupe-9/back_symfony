@@ -1,3 +1,7 @@
+app_activity:
+    resource: "@AppBundle/Controller/ActivityController.php"
+    type:     annotation
+
 api:
     resource: '.'
     type:     'api_platform'

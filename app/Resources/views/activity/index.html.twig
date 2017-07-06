@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {% stylesheets
+
+    'assets/sass/.scss'
+    'assets/sass/fontawesome.min.scss'
+
+    filter='compass' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+
+{% block body %}
+
+
+        {% for activity in activities %}
+
+            {# Titre de l'article #}
+            {{ activity.title }}
+
+            {# Contenu de l'article #}
+            {{ activity.description|raw }}
+
+            {# Date de publication de l'article #}
+            {% if activity.publicationDate %}{{ activity.publicationDate|date('d-m-Y') }}{% endif %}
+
+            {# Affichage de l'image de l'article #}
+            <img class="img-responsive" src={{ asset('images/'~activity.imageName) }}>
+
+            {# Dernière modification #}
+            {% if activity.updatedAt %}{{ activity.updatedAt|date('Y-m-d H:i:s') }}{% endif %}
+
+
+
+        {% endfor %}
+
+
+    {% if app.user %}
+        {# user is logged in #}
+        <a href="{{ path('news_new') }}">Poster une nouvelle actualité</a>
+    {% else %}
+        {# user is not logged in #}
+    {% endif %}
+
+
+
+{% endblock %}
